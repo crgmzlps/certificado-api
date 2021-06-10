@@ -1,0 +1,19 @@
+{
+  "name": "certificado-api",
+  "version": "0.0.1",
+  "description": "API para geração de certificados",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crgmzlps/certificado-api.git"
+  },
+  "author": "Carlo Roberto <crgmzlps@gmail.com> (http://www.github.com/crgmzlps;)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/crgmzlps/certificado-api/issues"
+  },
+  "homepage": "https://github.com/crgmzlps/certificado-api#readme"
+}
