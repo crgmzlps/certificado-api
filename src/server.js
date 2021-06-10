@@ -3,9 +3,8 @@ const { app } = require("./app");
 const { PORT } = process.env;
 
 async function startApp() {
-  await app.listen(PORT);
+  await app.listen(PORT, "0.0.0.0");
   app.cron.startAllJobs();
-  console.log(`Server listening on ${app.server.address().port}`);
 }
 
 startApp();
