@@ -9,11 +9,7 @@ const app = require("fastify")({
 const handlebars = require("handlebars");
 
 const { generatePdf } = require("./generatePdf");
-const {
-  saveTemplate,
-  loadTemplate,
-  templatesCleanUp,
-} = require("./localStorage");
+const { saveTemplate, loadTemplate } = require("./inMemoryStorage");
 
 app.register(require("fastify-multipart"), {
   limits: {
@@ -22,16 +18,6 @@ app.register(require("fastify-multipart"), {
   },
 });
 
-app.register(require("fastify-cron"), {
-  jobs: [
-    {
-      cronTime: "*/30 * * * *", // every 30 minutes
-      onTick: async (_server) => {
-        await templatesCleanUp();
-      },
-    },
-  ],
-});
 
 app.get("/", {}, async (request, reply) => {
   reply.send("API para gerar certificados.");
