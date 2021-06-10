@@ -4,7 +4,8 @@
   "description": "API para geração de certificados",
   "main": "src/server.js",
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "dev": "nodemon . | pino-pretty"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,13 @@
   "bugs": {
     "url": "https://github.com/crgmzlps/certificado-api/issues"
   },
-  "homepage": "https://github.com/crgmzlps/certificado-api#readme"
+  "homepage": "https://github.com/crgmzlps/certificado-api#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "fastify": "^3.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "pino-pretty": "^5.0.2"
+  }
 }
