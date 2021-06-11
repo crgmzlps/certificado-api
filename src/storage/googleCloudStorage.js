@@ -8,7 +8,7 @@ const credentials = {
   type: process.env.GOOGLE_STORAGE_TYPE,
   project_id: process.env.GOOGLE_STORAGE_PROJECT_ID,
   private_key_id: process.env.GOOGLE_STORAGE_PRIVATE_ID,
-  private_key: process.env.GOOGLE_STORAGE_PRIVATE_KEY,
+  private_key: process.env.GOOGLE_STORAGE_PRIVATE_KEY.replace(/\\n/g, "\n"),
   client_email: process.env.GOOGLE_STORAGE_CLIENT_EMAIL,
   client_id: process.env.GOOGLE_STORAGE_CLIENT_ID,
   auth_uri: process.env.GOOGLE_STORAGE_AUTH_URI,
