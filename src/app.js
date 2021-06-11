@@ -8,8 +8,11 @@ const app = require("fastify")({
 
 const handlebars = require("handlebars");
 
-const { generatePdf } = require("./generatePdf");
-const { saveTemplate, loadTemplate } = require("./inMemoryStorage");
+const { generatePdf } = require("./utils/generatePdf");
+const { saveTemplate, loadTemplate } = require("./storage/googleCloudStorage");
+const { getHash } = require("./utils/getHash");
+
+const cache = {};
 
 app.register(require("fastify-multipart"), {
   limits: {
@@ -17,7 +20,6 @@ app.register(require("fastify-multipart"), {
     files: 1,
   },
 });
-
 
 app.get("/", {}, async (request, reply) => {
   reply.send("API para gerar certificados.");
@@ -27,12 +29,22 @@ app.post("/templates", {}, async (request, reply) => {
   try {
     const data = await request.file();
     if (data.file) {
-      const res = await saveTemplate(data);
-      if (res) {
-        const { templateCode } = res;
-        reply.send({ templateCode });
+      const fileContent = await (await data.toBuffer()).toString("utf8");
+      const fileHash = getHash(fileContent);
+      // rudimentary cache
+      if (!cache[fileHash]) {
+        const templateCode = await saveTemplate(fileContent);
+        app.log.info("template stored on google cloud");
+        if (templateCode) {
+          cache[fileHash] = templateCode;
+          reply.send({ templateCode });
+        } else {
+          reply.code(400).send({ error: "Error on store the file" });
+        }
       } else {
-        reply.code(400).send({ error: "Error on store the file" });
+        const templateCode = cache[fileHash];
+        app.log.info("template retrieved from cache");
+        reply.send({ templateCode });
       }
     } else {
       reply.code(400).send({ error: "Error on process the file" });

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/crgmzlps/certificado-api#readme",
   "dependencies": {
+    "@google-cloud/storage": "^5.8.5",
     "dotenv": "^10.0.0",
     "fastify": "^3.17.0",
     "fastify-cron": "^1.1.2",

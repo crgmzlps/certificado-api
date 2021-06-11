@@ -45,8 +45,8 @@ exports.saveTemplate = async function (data) {
     const fileName = `${templateCode}.hbs`;
     const filePath = `${join(templates, fileName)}`;
     const fileContent = await (await data.toBuffer()).toString("utf8");
-    const templateWithInlineTemplate = juice(fileContent);
-    await fs.writeFile(filePath, templateWithInlineTemplate);
+    const templateWithInlineStyles = juice(fileContent);
+    await fs.writeFile(filePath, templateWithInlineStyles);
     return {
       templateCode,
     };
